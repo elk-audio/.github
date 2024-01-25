@@ -1,8 +1,8 @@
-# Elk Audio OS
-
-GH organization for the Elk Audio Operating System.
+# Elk Audio
 
 [Official website](https://elk.audio/start)
+
+# Elk Audio Operative System
 
 [Detailed documentation](https://elk-audio.github.io/elk-docs/html/index.html)
 
