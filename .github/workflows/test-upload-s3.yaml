@@ -1,7 +1,7 @@
 name: Test upload test directory to S3
 
 on: 
-  workflow_call
+  workflow_call:
   workflow_dispatch:  # manually
     inputs:
         debug_enabled:

@@ -1,8 +1,8 @@
 name: Test send a failure message to slack
 
 on: 
-  workflow_dispatch  # manually
-  workflow_call
+  workflow_dispatch:  # manually
+  workflow_call:
 
 permissions:
   contents: read
