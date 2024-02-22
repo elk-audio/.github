@@ -1,0 +1,35 @@
+name: Upload files to S3
+description: Uploads files to an S3 public read bucket
+inputs:
+  aws-bucket: 
+    description: The name of the S3 bucket
+  destination-dir: 
+    description: The destination directory in S3
+    required: true
+  source-dir: 
+    description: The source directory to upload
+    required: true
+  args: 
+    description: Additional arguments to pass to the aws s3 sync command
+    default: "--follow-symlinks --delete"
+    required: false
+  aws-login-overrides: 
+    description: Json object with the inputs to override the default aws login values
+    default: '{}'
+    required: false
+
+runs:
+  using: composite
+  steps:
+    - name: AWS Login  # TODO can we put this in the inside action? can we use env variables instead
+      id: creds
+      uses: elk-audio/github-ci-experiments/.github/actions/elk-aws-login@main
+      with:
+        overrides: ${{inputs.aws-overrides}}
+        output-credentials: true   
+    - name: Checkout repository code
+      uses: actions/checkout@v4
+    - name: Upload to S3
+      shell: bash
+      run: |
+        aws s3 sync "${{inputs.source-dir}}" "s3://${{inputs.aws-bucket}}/${{inputs.destination-dir}}"  --no-progress ${{inputs.args}}
