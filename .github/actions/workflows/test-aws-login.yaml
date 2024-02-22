@@ -14,5 +14,5 @@ jobs:
       - name: Checkout repository code
         uses: actions/checkout@v4
       - name: Log in to AWS
-        uses: elk-audio/github-ci-experiments/.github/actions/elk-aws-login@main
+        uses: elk-audio/.github/.github/actions/elk-aws-login@main
 

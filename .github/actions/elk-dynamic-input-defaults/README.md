@@ -15,7 +15,7 @@ Example use, a simplified version of: `elk-aws-login`
 ```yaml
     steps:
       - name: test-dynamic-input-defaults
-        uses: elk-audio/github-ci-experiments/.github/actions/elk-dynamic-input-defaults@main
+        uses: elk-audio/.github/.github/actions/elk-dynamic-input-defaults@main
         id: defaults
         with: 
           input: '{"my": "WOOOO", "are": "dynamic"}'
