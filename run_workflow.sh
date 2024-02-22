@@ -11,7 +11,7 @@ fetch_results() {
     local run_id="$2"
     # if open_browser
     if [[ $web -eq 1 ]]; then
-      echo "Opening: https://github.com/elk-audio/github-ci-experiments/actions/runs/$run_id"
+      echo "Opening: https://github.com/elk-audio/.github/actions/runs/$run_id"
       gh run view "$run_id" --web
     else
       gh run view "$run_id" --log
