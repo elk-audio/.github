@@ -8,7 +8,7 @@ CACHE
 
 ```
       - name: Build image and push to ECR
-        uses: elk-audio/.github/.github/actions/elk-docker-build-cache-push@main
+        uses: elk-audio/.github/.github/actions/elk-docker-build-cache-push@v1
         with:
           image-name: "test-elk-docker-build-cache-push"
           context: "./test-elk-docker-build-cache-push"

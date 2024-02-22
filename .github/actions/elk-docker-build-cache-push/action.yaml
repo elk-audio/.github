@@ -34,7 +34,7 @@ runs:
   using: composite
   steps:
     - name: AWS Login  
-      uses: elk-audio/.github/.github/actions/elk-aws-login@main
+      uses: elk-audio/.github/.github/actions/elk-aws-login@v1
       if: ${{ inputs.registry == 'aws' }}
       id: aws-login
       with: 
@@ -54,7 +54,7 @@ runs:
       uses: actions/checkout@v4
     - name: Build number
       id: build-number
-      uses: elk-audio/.github/.github/actions/build-tag-number@main
+      uses: elk-audio/.github/.github/actions/build-tag-number@v1
     - name: Generate list of extra tags
       if: ${{ inputs.extra-tags != '' }}
       shell: bash

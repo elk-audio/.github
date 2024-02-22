@@ -35,7 +35,7 @@ runs:
   using: composite
   steps: 
     - name: Generate inputs with default values # this is useful to avoid  # https://github.com/actions/runner/issues/924
-      uses: elk-audio/.github/.github/actions/elk-dynamic-input-defaults@main
+      uses: elk-audio/.github/.github/actions/elk-dynamic-input-defaults@v1
       id: aws-inputs
       with: 
         input: ${{ inputs.overrides }}

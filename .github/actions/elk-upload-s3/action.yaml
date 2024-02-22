@@ -24,7 +24,7 @@ runs:
   steps:
     - name: AWS Login  # TODO can we put this in the inside action? can we use env variables instead
       id: creds
-      uses: elk-audio/.github/.github/actions/elk-aws-login@main
+      uses: elk-audio/.github/.github/actions/elk-aws-login@v1
       with:
         overrides: ${{ inputs.aws-login-overrides }}
     - name: Checkout repository code
