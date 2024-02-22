@@ -16,4 +16,4 @@ jobs:
       - name: Build number
         uses: elk-audio/.github/.github/actions/build-tag-number@main
         with: 
-          prefix: "test-"
+          prefix: "test"
