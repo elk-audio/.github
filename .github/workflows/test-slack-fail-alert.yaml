@@ -14,5 +14,3 @@ jobs:
       - name: Send slack failure alert
         uses: ./.github/actions/slack-fail-alert
         #if: ${{ failure() && github.event_name != 'workflow_dispatch' }}
-        with:
-          webhook-url: "${{ vars.SLACK_WEBHOOK_URL }}"
