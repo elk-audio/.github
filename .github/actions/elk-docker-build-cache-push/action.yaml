@@ -38,7 +38,7 @@ runs:
       if: ${{ inputs.registry == 'aws' }}
       id: aws-login
       with: 
-        overrides: ${{ inputs.aws-login-overrides }}
+        input: ${{ inputs.aws-login-overrides }}
     - name: Check or create ECR repository
       shell: bash {0}
       continue-on-error: true
