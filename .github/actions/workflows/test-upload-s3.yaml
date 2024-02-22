@@ -1,0 +1,31 @@
+name: Test upload test directory to S3
+
+on: 
+  workflow_dispatch:  # manually
+    inputs:
+        debug_enabled:
+          type: boolean
+          description: 'Run the build with tmate debugging enabled (https://github.com/marketplace/actions/debugging-with-tmate)'
+          required: false
+          default: false
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  upload-s3-test-dir:
+    name: Uploads test directory to S3
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v4
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.debug_enabled }}
+      - name: Upload test directory to S3
+        uses: elk-audio/github-ci-experiments/.github/actions/elk-upload-s3@main
+        with:
+          aws-bucket: "${{ vars.AWS_S3_BUCKET }}"
+          source-dir: './.github/actions/elk-upload-s3/test-dir'
+          destination-dir: 'test-dir'

@@ -1,0 +1,25 @@
+name: Test dynamic input defaults
+
+on: workflow_dispatch
+
+permissions:
+  contents: read
+
+jobs:
+  test-dynamic-input-defaults:
+    name: Test dynamic input defaults
+    runs-on: ubuntu-latest
+    steps:
+      - name: test-dynamic-input-defaults
+        uses: elk-audio/github-ci-experiments/.github/actions/elk-dynamic-input-defaults@main
+        id: defaults
+        with: 
+          input: '{"my": "WOOOO", "are": "dynamic"}'
+          defaults: '{"my": "2", "input": "3", "are": "4"}'
+      - name: echo 
+        run: |
+          echo "Hello, ${{ steps.defaults.outputs.merged }}"
+          echo "Hello, ${{ fromJson(steps.defaults.outputs.merged).my }}"
+          echo "Hello, ${{ fromJson(steps.defaults.outputs.merged).input }}"
+          echo "Hello, ${{ fromJson(steps.defaults.outputs.merged).are }}"
+
