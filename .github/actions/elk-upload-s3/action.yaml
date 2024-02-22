@@ -3,6 +3,7 @@ description: Uploads files to an S3 public read bucket
 inputs:
   aws-bucket: 
     description: The name of the S3 bucket
+    required: true
   destination-dir: 
     description: The destination directory in S3
     required: true

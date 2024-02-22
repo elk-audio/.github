@@ -27,6 +27,6 @@ jobs:
       - name: Upload test directory to S3
         uses: elk-audio/.github/.github/actions/elk-upload-s3@main
         with:
-          aws-bucket: "${{ vars.AWS_S3_BUCKET }}"
+          aws-bucket: "elk-test-github-bucket"
           source-dir: './.github/actions/elk-upload-s3/test-dir'
           destination-dir: 'test-dir'
