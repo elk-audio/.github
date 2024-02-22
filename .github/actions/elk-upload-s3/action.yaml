@@ -26,7 +26,7 @@ runs:
       id: creds
       uses: elk-audio/.github/.github/actions/elk-aws-login@main
       with:
-        overrides: ${{ inputs.aws-overrides }}
+        overrides: ${{ inputs.aws-login-overrides }}
     - name: Checkout repository code
       uses: actions/checkout@v4
     - name: Upload to S3
