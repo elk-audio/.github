@@ -1,0 +1,23 @@
+name: Run all tests
+
+on: 
+  workflow_dispatch  # manually
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+
+permissions:
+  contents: read
+
+jobs:
+  call-workflow-test-aws-login:
+    uses: ./.github/workflows/test-aws-login.yaml  
+  call-workflow-test-elk-docker-build-cache-push:
+    uses: ./.github/workflows/test-elk-docker-build-cache-push.yaml  
+  call-workflow-test-elk-dynamic-input-defaults:
+    uses: ./.github/workflows/test-elk-dynamic-input-defaults.yaml  
+  call-workflow-test-slack-fail-alert:
+    uses: ./.github/workflows/test-slack-fail-alert.yaml  
+  call-workflow-test-upload-s3:
+    uses: ./.github/workflows/test-upload-s3.yaml
+

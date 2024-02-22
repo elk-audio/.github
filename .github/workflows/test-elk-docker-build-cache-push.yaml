@@ -1,6 +1,7 @@
 name: Test Docker Build Cache Push
 
 on: 
+  workflow_call
   workflow_dispatch:  # manually
     inputs:
         debug_enabled:
