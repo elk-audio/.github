@@ -12,12 +12,18 @@ permissions:
 jobs:
   call-workflow-test-aws-login:
     uses: ./.github/workflows/test-aws-login.yaml  
+    permissions:
+      id-token: write
   call-workflow-test-elk-docker-build-cache-push:
     uses: ./.github/workflows/test-elk-docker-build-cache-push.yaml  
+    permissions:
+      id-token: write
   call-workflow-test-elk-dynamic-input-defaults:
     uses: ./.github/workflows/test-elk-dynamic-input-defaults.yaml  
   call-workflow-test-slack-fail-alert:
     uses: ./.github/workflows/test-slack-fail-alert.yaml  
   call-workflow-test-upload-s3:
     uses: ./.github/workflows/test-upload-s3.yaml
+    permissions:
+      id-token: write
 
