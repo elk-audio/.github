@@ -30,8 +30,5 @@ jobs:
           image-name: "test-elk-docker-build-cache-push"
           context: "./test-elk-docker-build-cache-push"
           extra-tags: "extra-tag"
-      - name: Docker build failed
-        uses: elk-audio/.github/.github/actions/slack-fail-alert@main
-        if: failure()
 
 

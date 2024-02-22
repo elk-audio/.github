@@ -22,8 +22,8 @@ jobs:
       id-token: write
   call-workflow-test-elk-dynamic-input-defaults:
     uses: ./.github/workflows/test-elk-dynamic-input-defaults.yaml  
-  call-workflow-test-slack-fail-alert:
-    uses: ./.github/workflows/test-slack-fail-alert.yaml  
+  #call-workflow-test-slack-fail-alert:
+  #  uses: ./.github/workflows/test-slack-fail-alert.yaml  
   call-workflow-test-upload-s3:
     uses: ./.github/workflows/test-upload-s3.yaml
     permissions:
