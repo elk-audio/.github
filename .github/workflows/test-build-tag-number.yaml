@@ -15,6 +15,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Build number
-        id: build-number
-        prefix: test
         uses: elk-audio/.github/.github/actions/build-tag-number@main
+        with: 
+          prefix: test
