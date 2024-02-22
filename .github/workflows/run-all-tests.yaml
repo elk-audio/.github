@@ -26,6 +26,8 @@ jobs:
     uses: ./.github/workflows/test-elk-dynamic-input-defaults.yaml  
   call-workflow-test-build-tag-number:
     uses: ./.github/workflows/test-build-tag-number.yaml
+    permissions:
+      contents: write
   call-workflow-test-upload-s3:
     uses: ./.github/workflows/test-upload-s3.yaml
     permissions:
