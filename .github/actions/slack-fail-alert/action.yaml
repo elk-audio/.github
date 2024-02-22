@@ -1,0 +1,17 @@
+# inspired: https://github.com/github/docs/blob/main/.github/actions/slack-alert/action.yml
+name: Send Slack notification if workflow fails
+description: Send Slack notification if workflow fails
+inputs:
+  webhook-url:
+    description: Slacks incoming webhook url
+    required: true
+    default: "https://hooks.slack.com/services/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"
+runs:
+  using: composite
+  steps:
+    - name: Send Slack notification if workflow fails
+      uses: someimportantcompany/github-actions-slack-message@1d367080235edfa53df415bd8e0bbab480f29bad # v1
+      with:
+        webhook-url: "${{ inputs.webhook-url }}"
+        color: failure
+        text: The last '${{ github.workflow }}' run failed. See ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
