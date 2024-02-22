@@ -10,6 +10,8 @@ permissions:
   contents: read
 
 jobs:
+  #call-workflow-test-slack-fail-alert:
+  #  uses: ./.github/workflows/test-slack-fail-alert.yaml  
   call-workflow-test-aws-login:
     uses: ./.github/workflows/test-aws-login.yaml  
     permissions:
@@ -22,8 +24,8 @@ jobs:
       id-token: write
   call-workflow-test-elk-dynamic-input-defaults:
     uses: ./.github/workflows/test-elk-dynamic-input-defaults.yaml  
-  #call-workflow-test-slack-fail-alert:
-  #  uses: ./.github/workflows/test-slack-fail-alert.yaml  
+  call-workflow-test-build-tag-number:
+    uses: ./.github/workflows/test-build-tag-number.yaml
   call-workflow-test-upload-s3:
     uses: ./.github/workflows/test-upload-s3.yaml
     permissions:
