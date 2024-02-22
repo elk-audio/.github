@@ -1,4 +1,3 @@
-
 name: Test build tag number
 
 on: 
@@ -10,11 +9,11 @@ permissions:
 
 jobs:
   send-slack-failure-alert:
-    name: Send Slack Failure Alert
+    name: Generate a build number
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: Build number
         uses: elk-audio/.github/.github/actions/build-tag-number@main
         with: 
-          prefix: test
+          prefix: "test-"

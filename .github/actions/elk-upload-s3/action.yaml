@@ -16,7 +16,7 @@ inputs:
     required: false
   aws-login-overrides: 
     description: Json object with the inputs to override the default aws login values
-    default: '{}'
+    default: '{"output-credentials": true}' # TODO: maybe improve this
     required: false
 
 runs:
@@ -27,7 +27,6 @@ runs:
       uses: elk-audio/.github/.github/actions/elk-aws-login@main
       with:
         overrides: ${{inputs.aws-overrides}}
-        output-credentials: true   
     - name: Checkout repository code
       uses: actions/checkout@v4
     - name: Upload to S3
