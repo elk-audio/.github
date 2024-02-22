@@ -24,7 +24,7 @@ jobs:
         uses: mxschmitt/action-tmate@v3
         if: ${{ github.event_name == 'workflow_dispatch' && inputs.debug_enabled }}
       - name: Upload test directory to S3
-        uses: elk-audio/.github/.github/actions/elk-upload-s3@main
+        uses: elk-audio/github-ci-experiments/.github/actions/elk-upload-s3@main
         with:
           aws-bucket: "${{ vars.AWS_S3_BUCKET }}"
           source-dir: './.github/actions/elk-upload-s3/test-dir'
