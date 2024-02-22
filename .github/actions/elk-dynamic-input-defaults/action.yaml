@@ -1,0 +1,21 @@
+name: Elk Dynamic Input Defaults
+description: This action allows specifying defaults for dynamic input values 
+inputs:
+  input:
+    required: true
+    default: "{}"
+    description: provide all input variables in object key-value structure
+  defaults: 
+    required: true
+    default: "{}"
+    description: provide all default values for input variables in object key-value structure
+  skip-empty-strings: 
+    required: false
+    default: "false"
+    description: if true, empty strings will be skipped and not included in the output
+outputs:
+  merged:
+    description: json object with merged input and default values
+runs:
+  using: node20
+  main: "dist/index.js"
