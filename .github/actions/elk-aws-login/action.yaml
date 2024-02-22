@@ -1,0 +1,64 @@
+name: Log into AWS 
+description: Log into AWS account (default Elk's main account)
+inputs:
+  overrides: 
+    description: Json object with the inputs to override the defaults
+    default: '{}'
+  defaults: 
+    description: Json object with the inputs to override the defaults
+    default: '{ "aws-role-name": "ElkGithubCICDRole", "output-credentials": false, "aws-region": "eu-central-1", "aws-account-id": "421585113764" }'
+outputs: 
+  aws-access-key-id:
+    description: The AWS access key ID
+    value: ${{ steps.creds.outputs.aws-access-key-id }}
+  aws-secret-access-key:
+    description: The AWS secret access key
+    value: ${{ steps.creds.outputs.aws-secret-access-key }}
+  aws-session-token:
+    description: The AWS session token
+    value: ${{ steps.creds.outputs.aws-session-token }}
+  # These need to be re-exported. fromJson is not supported in outputs
+  aws-account-id: 
+    description: The AWS account ID specified
+    value: ${{ steps.re-export.outputs.aws-account-id }}
+  aws-region:
+    description: The AWS region specified
+    value: ${{ steps.re-export.outputs.aws-region }}
+  aws-role-name:
+    description: The AWS role name specified
+    value: ${{ steps.re-export.outputs.aws-role-name }}
+  output-credentials:
+    description: Whether it was specified to output the credentials or not
+    value: ${{ steps.re-export.outputs.aws-output-credentials }}
+
+runs:
+  using: composite
+  steps: 
+    - name: Generate inputs with default values # this is useful to avoid  # https://github.com/actions/runner/issues/924
+      uses: elk-audio/github-ci-experiments/.github/actions/elk-dynamic-input-defaults@main
+      id: aws-inputs
+      with: 
+        input: ${{ inputs.overrides }}
+        defaults: ${{ inputs.defaults }}
+    - name: Echo merged inputs
+      shell: bash
+      run: echo ${{ steps.aws-inputs.outputs.merged }}
+    - name: Configure AWS Credentials 
+      id: creds
+      uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4.0.2
+      with:
+        aws-region: ${{ fromJson(steps.aws-inputs.outputs.merged).aws-region }}
+        role-to-assume: arn:aws:iam::${{ fromJson(steps.aws-inputs.outputs.merged).aws-account-id }}:role/${{ fromJson(steps.aws-inputs.outputs.merged).aws-role-name }}
+        output-credentials: ${{ fromJson(steps.aws-inputs.outputs.merged).output-credentials }}
+    - name: Get caller identity 
+      shell: bash
+      run: |
+        aws sts get-caller-identity
+    - name: Re-export AWS parameters
+      id: re-export
+      shell: bash
+      run: |
+        echo "aws-account-id=${{ fromJson(steps.aws-inputs.outputs.merged).aws-account-id }}" >> $GITHUB_OUTPUT
+        echo "aws-region=${{ fromJson(steps.aws-inputs.outputs.merged).aws-region }}" >> $GITHUB_OUTPUT
+        echo "aws-role-name=${{ fromJson(steps.aws-inputs.outputs.merged).aws-role-name }}" >> $GITHUB_OUTPUT
+        echo "aws-output-credentials=${{ fromJson(steps.aws-inputs.outputs.merged).output-credentials }}" >> $GITHUB_OUTPUT
