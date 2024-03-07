@@ -1,0 +1,35 @@
+name: Test tag and release
+
+
+on:
+  workflow_call:
+  workflow_dispatch:
+    inputs:
+      release:
+        type: boolean
+        description: 'Whether to create a release'
+        required: true
+        default: false
+      dry-run:
+        type: boolean
+        description: 'Whether to perform a dry run'
+        required: true
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  tag-and-release:
+    name: Tag and Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v4
+      - name: Tag and Release
+        uses: ./.github/actions/elk-tag-and-release
+        with:
+          release: ${{ inputs.release }}
+          dry-run: ${{ inputs.dry-run }}
+
+
