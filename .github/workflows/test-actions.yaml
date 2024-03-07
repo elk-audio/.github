@@ -3,7 +3,7 @@ name: Test Actions
 on: 
   workflow_dispatch:  # manually
   push:
-    branches: [ $default-branch ]
+    branches: [ $default-branch, main, master ]
 
 permissions:
   contents: read
