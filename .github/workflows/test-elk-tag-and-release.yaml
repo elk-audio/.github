@@ -2,8 +2,8 @@ name: Test tag and release
 
 
 on:
-  workflow_dispatch:
   workflow_call:
+  workflow_dispatch:
     inputs:
       release:
         type: boolean
