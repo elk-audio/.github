@@ -7,9 +7,10 @@ on:
         type: choice
         required: true
         description: "The kind of version bump to perform"
+        default: "minor"
         options:
-          - patch
           - minor
+          - patch
           - major
           - custom version      
       custom-version:
