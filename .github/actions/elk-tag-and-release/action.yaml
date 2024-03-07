@@ -55,7 +55,7 @@ runs:
         #GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # if you don't want to set write permissions use a PAT token
         WITH_V: 'true'
         DEFAULT_BUMP: ${{ inputs.bump-type }}
-        CUSTOM_VERSION: ${{ inputs.custom-version }}
+        CUSTOM_TAG: ${{ inputs.custom-version }}
     - name: Extract major tag
       id: extract-major
       shell: bash
