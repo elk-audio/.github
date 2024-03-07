@@ -1,0 +1,37 @@
+name: Bump version
+
+on: 
+  workflow_dispatch:  # manually
+    inputs:
+      bump-type:
+        type: choice
+        required: true
+        description: "The kind of version bump to perform"
+        options:
+          - patch
+          - minor
+          - major
+          - custom version      
+      custom-version:
+        type: string
+        description: "Custom version to use"
+        required: false
+        default: ""
+
+
+permissions:
+  contents: write
+
+jobs:
+  tag-and-release:
+    name: Tag and Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Tag and Release
+        uses: elk-audio/.github/.github/actions/elk-tag-and-release@v1
+        with:
+          bump-type: ${{ github.event.inputs.bump-type }}
+          custom-version: ${{ github.event.inputs.custom-version }}
+
+
+

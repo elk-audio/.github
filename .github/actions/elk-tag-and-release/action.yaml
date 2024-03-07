@@ -18,6 +18,14 @@ inputs:
     description: The file to use as the release body
     required: false
     default: ''
+  bump-type: 
+    description: The type of bump to perform
+    required: false
+    default: 'minor'
+  custom-version: 
+    description: A custom tag to use instead of bumping the version
+    required: false
+    default: ''
   dry-run: 
     description: Whether to perform a dry run or not
     required: false
@@ -46,6 +54,8 @@ runs:
         DRY_RUN: ${{ inputs.dry-run }}
         #GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # if you don't want to set write permissions use a PAT token
         WITH_V: 'true'
+        DEFAULT_BUMP: ${{ inputs.bump-type }}
+        CUSTOM_VERSION: ${{ inputs.custom-version }}
     - name: Extract major tag
       id: extract-major
       shell: bash
@@ -57,12 +67,10 @@ runs:
       run: |-
         git config user.name github-actions
         git config user.email github-actions@github.com
-
         if [[ "${{ inputs.dry-run }}" == "true" ]]; then
           echo "Dry run, not updating major tag"
           exit 0
         fi
-
         git tag --force ${{ steps.extract-major.outputs.major_tag }} \
         ${{ steps.bump-version.outputs.new_tag }}
         git push origin ${{ steps.extract-major.outputs.major_tag }} --force
