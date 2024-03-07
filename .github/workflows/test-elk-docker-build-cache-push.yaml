@@ -25,7 +25,7 @@ jobs:
         uses: mxschmitt/action-tmate@v3
         if: ${{ github.event_name == 'workflow_dispatch' && inputs.debug_enabled }}
       - name: Build image and push to ECR
-        uses: elk-audio/.github/.github/actions/elk-docker-build-cache-push@v1
+        uses: ./.github/actions/elk-docker-build-cache-push
         with:
           image-name: "test-elk-docker-build-cache-push"
           context: "./test-elk-docker-build-cache-push"
