@@ -1,0 +1,68 @@
+name: Elk Tag and Release
+description: Create a tag and optionally a release
+
+inputs:
+  fetch-depth: 
+    description: The depth of commits to fetch to generate the release
+    required: false
+    default: '100'
+  artifacts: 
+    description: A comma separated list of files to upload as release artifacts
+    required: false
+    default: ''
+  release: 
+    description: Whether to create a release or not
+    required: false
+    default: 'true'
+  body-file: 
+    description: The file to use as the release body
+    required: false
+    default: ''
+  dry-run: 
+    description: Whether to perform a dry run or not
+    required: false
+    default: 'false'
+
+outputs: 
+  tag:
+    description: The tag that was created
+    value: ${{ steps.re-export.outputs.tag }}
+  release-id: 
+    description: The id release that was created
+    value: ${{ steps.create-release.outputs.id }}
+
+runs:
+  using: composite
+  steps: 
+    - name: Checkout repository code
+      uses: actions/checkout@v4 
+      with:
+        fetch-depth: ${{ inputs.fetch-depth }}
+    - name: Bump version and push tag
+      uses: anothrNick/github-tag-action@a2c70ae13a881faf2b4953baaa9e49731997ab36 # v1.67.0
+      id: bump-version
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+        DRY_RUN: ${{ inputs.dry-run }}
+        #GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # if you don't want to set write permissions use a PAT token
+        WITH_V: 'true'
+    - name: Fake-release in case of dry-run
+      shell: bash
+      if: ${{ inputs.release == 'true' }}
+      id: re-export
+      run: |
+        if [ "${{ inputs.dry-run }}" == "true" ]; then
+          echo "Dry run, not creating a release"
+          echo "tag=test" >> $GITHUB_OUTPUT
+        else 
+          echo "tag=${{ steps.bump-version.outputs.tag }}" >> $GITHUB_OUTPUT
+        fi
+    - name: Create a release
+      id: create-release
+      if: ${{ inputs.release == 'true' }}
+      uses: ncipollo/release-action@2c591bcc8ecdcd2db72b97d6147f871fcd833ba5 # v1.14.0
+      with:
+        artifacts: ${{ inputs.artifacts }}
+        bodyFile: ${{ inputs.body-file }}
+        draft: ${{ inputs.dry-run }}
+        tag: ${{ steps.re-export.outputs.tag }}

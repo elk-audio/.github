@@ -1,0 +1,23 @@
+name: Test tag and release
+
+on:
+  workflow_dispatch:
+  workflow_call:
+
+permissions:
+  contents: write
+
+jobs:
+  tag-and-release:
+    name: Tag and Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v4
+      - name: Tag and Release
+        uses: ./.github/actions/elk-tag-and-release
+        with:
+          release: true
+          dry-run: true
+
+
