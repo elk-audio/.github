@@ -57,6 +57,12 @@ runs:
       run: |-
         git config user.name github-actions
         git config user.email github-actions@github.com
+
+        if [[ "${{ inputs.dry-run }}" == "true" ]]; then
+          echo "Dry run, not updating major tag"
+          exit 0
+        fi
+
         git tag --force ${{ steps.extract-major.outputs.major_tag }} \
         ${{ steps.bump-version.outputs.new_tag }}
         git push origin ${{ steps.extract-major.outputs.major_tag }} --force
@@ -71,7 +77,7 @@ runs:
         else 
           echo "tag=${{ steps.bump-version.outputs.tag }}" >> $GITHUB_OUTPUT
         fi
-    - name: Create a release
+    - name: Create a release for the complete tag
       id: create-release
       if: ${{ inputs.release == 'true' }}
       uses: ncipollo/release-action@2c591bcc8ecdcd2db72b97d6147f871fcd833ba5 # v1.14.0
