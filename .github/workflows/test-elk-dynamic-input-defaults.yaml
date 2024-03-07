@@ -12,6 +12,8 @@ jobs:
     name: Test dynamic input defaults
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v4
       - name: test-dynamic-input-defaults
         uses: ./.github/actions/elk-dynamic-input-defaults
         id: defaults
