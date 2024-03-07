@@ -15,7 +15,7 @@ on:
           - custom version      
       custom-version:
         type: string
-        description: "Custom version to use"
+        description: "OPTIONAL: Custom version to use"
         required: false
         default: ""
 
