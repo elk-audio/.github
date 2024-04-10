@@ -56,13 +56,11 @@ runs:
         WITH_V: 'true'
         DEFAULT_BUMP: ${{ inputs.bump-type }}
         CUSTOM_TAG: ${{ inputs.custom-version }}
-    - name: Extract major tag
+    - name: Extract major tag (to create @v1 and @v1.1.1)
       id: extract-major
       shell: bash
       run: |-
         echo major_tag=$(echo ${{ steps.bump-version.outputs.new_tag }} | cut -d'.' -f1) >> $GITHUB_OUTPUT
-        echo part=${{ steps.bump-version.outputs.part }}
-        echo tag=${{ steps.bump-version.outputs.tag }}
     - name: Update major tag
       shell: bash
       run: |-
