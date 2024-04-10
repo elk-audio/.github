@@ -9,12 +9,12 @@ on:
         type: boolean
         description: 'Whether to create a release'
         required: true
-        default: false
+        default: true
       dry-run:
         type: boolean
         description: 'Whether to perform a dry run'
         required: true
-        default: false
+        default: true
 
 permissions:
   contents: write
