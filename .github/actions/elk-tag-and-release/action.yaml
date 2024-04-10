@@ -58,6 +58,7 @@ runs:
         DEFAULT_BUMP: ${{ inputs.bump-type }}
         CUSTOM_TAG: ${{ inputs.custom-version }}
         FORCE_WITHOUT_CHANGES_PRE: 'true'
+        FORCE_WITHOUT_CHANGES: 'true'
     - name: Extract major tag (to create @v1 and @v1.1.1)
       id: extract-major
       shell: bash
