@@ -64,7 +64,7 @@ runs:
     - name: Extract major tag
       id: extract-major
       shell: bash
-      run: >-
+      run: |-
         echo major_tag=$(echo ${{ steps.bump-version.outputs.new_tag }} | cut -d'.' -f1) >> $GITHUB_OUTPUT
         echo part=${{ steps.bump-version.outputs.part }}
         echo tag=${{ steps.bump-version.outputs.tag }}
