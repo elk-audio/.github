@@ -56,21 +56,6 @@ runs:
         WITH_V: 'true'
         DEFAULT_BUMP: ${{ inputs.bump-type }}
         CUSTOM_TAG: ${{ inputs.custom-version }}
-    - name: Exit if there were no changes
-      shell: bash
-      run: >- 
-        tag_commit=$(git rev-list -n 1 "$tag")
-        commit=$(git rev-parse HEAD)
-
-        if [ "$tag_commit" == "$commit" ]
-        then
-            echo "No new commits since previous tag. Skipping..."
-            setOutput "new_tag" "$tag"
-            setOutput "tag" "$tag"
-            exit 0
-        fi
-        echo "part=" ${{ steps.bump-version.outputs.part }}
-        
     - name: Extract major tag
       id: extract-major
       shell: bash
@@ -108,7 +93,7 @@ runs:
       with:
         artifacts: ${{ inputs.artifacts }}
         bodyFile: ${{ inputs.body-file }}
-        tag: ${{ steps.re-export.outputs.tag }}
         # If it is a dry run, push "test" and allow updates
         draft: ${{ inputs.dry-run }}
+        tag: ${{ steps.re-export.outputs.tag }}
         allowUpdates: ${{ inputs.dry-run }}
