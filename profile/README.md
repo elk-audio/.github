@@ -1,6 +1,6 @@
 # Elk Audio
 
-[Official website](https://elk.audio/start)
+[Official website](https://elk.audio)
 
 # Elk Audio Operative System
 
